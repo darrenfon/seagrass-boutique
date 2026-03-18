@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
+/* ── Seagrass Boutique — coastal bohemian palette ──────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --sg-sand: #faf6f1;
+  --sg-driftwood: #e8ddd0;
+  --sg-ocean: #3d7a8a;
+  --sg-ocean-deep: #2a5f6f;
+  --sg-sage: #7a9e7e;
+  --sg-coral: #d4856a;
+  --sg-coral-warm: #e09a7e;
+  --sg-shell: #f5ede3;
+  --sg-ink: #2c2c2c;
+  --sg-ink-light: #5a5a5a;
+  --sg-white: #ffffff;
+  --sg-gold: #c4a265;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sand: var(--sg-sand);
+  --color-driftwood: var(--sg-driftwood);
+  --color-ocean: var(--sg-ocean);
+  --color-ocean-deep: var(--sg-ocean-deep);
+  --color-sage: var(--sg-sage);
+  --color-coral: var(--sg-coral);
+  --color-coral-warm: var(--sg-coral-warm);
+  --color-shell: var(--sg-shell);
+  --color-ink: var(--sg-ink);
+  --color-ink-light: var(--sg-ink-light);
+  --color-gold: var(--sg-gold);
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--sg-sand);
+  color: var(--sg-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Product card placeholder shimmer — one-directional, subtle ─ */
+.product-image-placeholder {
+  position: relative;
+  overflow: hidden;
+}
+.product-image-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 45%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.12) 55%,
+    transparent 70%
+  );
+  animation: shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-150%); }
+  100% { transform: translateX(150%); }
+}
+
+/* ── Marquee — seamless infinite scroll ──────────────────────── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+  will-change: transform;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ── Announcement bar — slightly faster ──────────────────────── */
+.animate-announce {
+  animation: marquee 25s linear infinite;
+}
+
+/* ── Organic wave drift for newsletter background layers ─────── */
+@keyframes wave-drift {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25px) translateY(3px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+@keyframes wave-drift-slow {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(15px) translateY(-4px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+.animate-wave { animation: wave-drift 8s ease-in-out infinite; }
+.animate-wave-slow { animation: wave-drift-slow 12s ease-in-out infinite; }
+
+/* ── Button breathe — idle pulse on primary CTAs ─────────────── */
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 4px 20px rgba(61, 122, 138, 0.15); }
+  50% { box-shadow: 0 8px 30px rgba(61, 122, 138, 0.25); }
+}
+.btn-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+.btn-breathe:hover {
+  animation: none;
+  box-shadow: 0 12px 35px rgba(61, 122, 138, 0.3);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--sg-sand); }
+::-webkit-scrollbar-thumb { background: var(--sg-driftwood); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--sg-ocean); }
+
+/* ── Selection ───────────────────────────────────────────────── */
+::selection {
+  background: var(--sg-ocean);
+  color: white;
 }

@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { collections, getTrendingProducts } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 import { CollectionBanner } from "@/components/CollectionBanner";
@@ -108,33 +109,40 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
             className="hidden lg:grid grid-cols-12 grid-rows-12 gap-3 h-[600px]"
           >
-            <div className="col-span-7 row-span-7 rounded-2xl bg-gradient-to-br from-rose-200 via-pink-200 to-amber-100 overflow-hidden relative group">
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-ink/5 to-transparent" />
+            {/* Spring Edit — large feature tile */}
+            <div className="col-span-7 row-span-7 rounded-2xl overflow-hidden relative group">
+              <Image src="/images/hero-spring-edit.jpg" alt="Spring fashion" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="40vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-ink/10 to-transparent" />
               <div className="absolute bottom-5 left-5 right-5">
                 <span className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-medium">New Collection</span>
                 <p className="text-white font-serif text-2xl mt-1">Spring Edit</p>
               </div>
-              <div className="absolute inset-0 bg-ocean/0 group-hover:bg-ocean/10 transition-colors duration-500" />
             </div>
 
-            <div className="col-span-5 row-span-5 col-start-8 rounded-2xl bg-gradient-to-br from-sky-200 to-ocean/30 overflow-hidden relative group">
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/25 to-transparent" />
+            {/* Effortless Layers */}
+            <div className="col-span-5 row-span-5 col-start-8 rounded-2xl overflow-hidden relative group">
+              <Image src="/images/hero-effortless-layers.jpg" alt="Effortless layered outfits" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="25vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/35 to-transparent" />
               <div className="absolute bottom-4 left-4">
                 <span className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-medium">Tops</span>
                 <p className="text-white font-serif text-lg mt-0.5">Effortless Layers</p>
               </div>
             </div>
 
-            <div className="col-span-5 row-span-5 row-start-8 rounded-2xl bg-gradient-to-br from-amber-100 via-orange-200 to-coral-warm/40 overflow-hidden relative group">
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/25 to-transparent" />
+            {/* Riddle Oil */}
+            <div className="col-span-5 row-span-5 row-start-8 rounded-2xl overflow-hidden relative group">
+              <Image src="/images/hero-riddle-oil.jpg" alt="Riddle Oil body care" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="25vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/35 to-transparent" />
               <div className="absolute bottom-4 left-4">
                 <span className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-medium">Body</span>
                 <p className="text-white font-serif text-lg mt-0.5">Riddle Oil</p>
               </div>
             </div>
 
-            <div className="col-span-7 row-span-7 col-start-6 row-start-6 rounded-2xl bg-gradient-to-br from-rose-100 via-pink-100 to-gold/20 overflow-hidden relative group">
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/25 to-transparent" />
+            {/* Voluspa */}
+            <div className="col-span-7 row-span-7 col-start-6 row-start-6 rounded-2xl overflow-hidden relative group">
+              <Image src="/images/hero-voluspa.jpg" alt="Voluspa candles" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="40vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/35 to-transparent" />
               <div className="absolute bottom-5 left-5">
                 <span className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-medium">Candles</span>
                 <p className="text-white font-serif text-2xl mt-1">Voluspa</p>
@@ -263,21 +271,33 @@ export default function HomePage() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="hidden lg:block"
           >
-            <div className="aspect-[4/5] rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 p-10 flex flex-col justify-between">
-              <div>
-                <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-6">
-                  <svg width="28" height="28" fill="none" stroke="white" strokeWidth="1.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                  </svg>
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden relative">
+              <Image
+                src="/images/personal-shopper.jpg"
+                alt="Inside a boutique — curated clothing racks and warm lighting"
+                fill
+                className="object-cover"
+                sizes="40vw"
+              />
+              {/* Glass overlay card with quote */}
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-ink/20 to-ink/5" />
+              <div className="absolute inset-0 flex flex-col justify-end p-10">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 p-8">
+                  <p className="font-serif text-2xl text-white leading-snug mb-3">
+                    &ldquo;Style is a way to say who you are without having to speak.&rdquo;
+                  </p>
+                  <div className="flex items-center justify-between pt-4 border-t border-white/15">
+                    <div>
+                      <p className="text-white/90 font-medium text-sm">Kelli Conway</p>
+                      <p className="text-white/50 text-xs">Personal Shopper</p>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                      <svg width="18" height="18" fill="none" stroke="white" strokeWidth="1.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <p className="font-serif text-3xl text-white leading-snug mb-4">
-                  &ldquo;Style is a way to say who you are without having to speak.&rdquo;
-                </p>
-                <p className="text-white/50 text-sm">— Every piece tells your story</p>
-              </div>
-              <div className="pt-8 border-t border-white/15">
-                <p className="text-white/90 font-medium">Kelli Conway</p>
-                <p className="text-white/50 text-sm">Personal Shopper</p>
               </div>
             </div>
           </motion.div>

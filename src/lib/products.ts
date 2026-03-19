@@ -2,6 +2,14 @@
 // Each product mirrors Shopify's product object shape:
 //   handle (slug), title, vendor, price, compareAtPrice, images, tags, variants, collections
 
+export interface ProductVariant {
+  id: string;
+  title: string;
+  availableForSale: boolean;
+  price: number;
+  selectedOptions: { name: string; value: string }[];
+}
+
 export interface Product {
   handle: string;
   title: string;
@@ -15,6 +23,13 @@ export interface Product {
   image: string; // gradient fallback for products without photos
   realImage?: string; // actual product photo path (local or Shopify CDN)
   description?: string;
+  // Shopify-specific fields (populated when data comes from Storefront API)
+  shopifyId?: string;
+  shopifyVariantId?: string;
+  variants?: ProductVariant[];
+  images?: string[];
+  availableForSale?: boolean;
+  descriptionHtml?: string;
 }
 
 export interface Collection {

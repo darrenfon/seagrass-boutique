@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/products";
+import { AddToCartButton } from "@/components/AddToCartButton";
 
 interface ProductCardProps {
   product: Product;
@@ -59,16 +60,13 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-ink/0 to-ink/0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end justify-center pb-5">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white/95 backdrop-blur-sm text-ink text-[13px] font-medium px-7 py-2.5 rounded-full
-                       translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100
-                       transition-all duration-300 delay-75
-                       shadow-lg hover:bg-ocean hover:text-white"
-          >
-            Add to Cart
-          </motion.button>
+          <div className="translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-75">
+            <AddToCartButton
+              variantId={product.shopifyVariantId}
+              className="bg-white/95 backdrop-blur-sm text-ink text-[13px] font-medium px-7 py-2.5 rounded-full
+                         shadow-lg hover:bg-ocean hover:text-white transition-colors"
+            />
+          </div>
         </div>
 
         {product.compareAtPrice && (

@@ -1,0 +1,137 @@
+Seagrass Boutique - Image URL Inventory
+Scraped from seagrassboutique.com (Material Retail / HouseAccount platform)
+Date: 2026-03-18
+========================================================================
+
+== LOGO ==
+https://uploads.houseacct.com/uploads/shop/storefront_logo/1167/1c5cd496-752f-4a08-861e-c2bc14eec00a.png
+  - Content: Seagrass Boutique storefront logo (PNG, transparent background)
+
+== SHOP / BRAND IMAGES ==
+https://uploads.houseacct.com/uploads/shop/photo/1167/thumb_2x_sea.png
+  - Content: Shop thumbnail image (2x retina)
+
+https://uploads.houseacct.com/uploads/shop/photo/1167/big_2x_sea.png
+  - Content: Shop large banner image (2x retina)
+
+https://uploads.houseacct.com/uploads/shop/storefront_hero_photo/1167/d5dd5e39-375b-4cee-85d8-ca6dcd3782e0.png
+  - Content: Homepage hero banner image
+
+https://uploads.houseacct.com/uploads/shop/subscribe_photo/1167/big_5f05ddec-e009-47ab-8442-a7a940f9249c.png
+  - Content: Newsletter signup promotional image (10% off)
+
+== ABOUT PAGE - STORE INTERIOR ==
+https://uploads.houseacct.com/uploads/shop/storefront_about_image/1167/big_3e8871ef-0ecf-4d5a-9856-585c44081707.jpg
+  - Content: Store interior / coastal fashion aesthetic photo (About section hero)
+  - Source: /about page
+
+== STAFF / PROFILE ==
+https://uploads.houseacct.com/uploads/user/photo/134540/1493222026.jpg
+  - Content: Kelli Conway - Personal Stylist profile photo
+
+== FEATURED COLLECTION BANNERS ==
+https://uploads.houseacct.com/uploads/ha_web/post_collection/photo/3400/big_3x_VOLUSPA.jpg
+  - Content: Voluspa candle/fragrance collection banner (3x retina)
+
+https://uploads.houseacct.com/uploads/ha_web/post_collection/photo/3363/big_3x_RIDDLE.jpg
+  - Content: Riddle Oil collection banner (3x retina)
+
+https://uploads.houseacct.com/uploads/ha_web/post_collection/photo/3399/big_3x_SPRING.jpg
+  - Content: Spring Fashion collection banner (3x retina)
+
+https://uploads.houseacct.com/uploads/ha_web/post_collection/photo/3401/big_3x_SUMMER.jpg
+  - Content: Summer Fashion collection banner (3x retina)
+
+== TRENDING PRODUCT IMAGES (thumb_2x = ~600px wide retina thumbnails) ==
+
+1. Bailey Mini Dress (Current Air)
+   https://uploads.houseacct.com/uploads/photo/file/3589925/thumb_2x_1773273499237.png
+
+2. Audrey Dress (dRA)
+   https://uploads.houseacct.com/uploads/photo/file/3590041/thumb_2x_1773274064335_e18d1yc.jpeg
+
+3. Traci Knit Skirt (Design History)
+   https://uploads.houseacct.com/uploads/photo/file/3598866/thumb_2x_1773861973453.png
+
+4. Traci Knit Cardi (Design History)
+   https://uploads.houseacct.com/uploads/photo/file/3598857/thumb_2x_1773861557551.png
+
+5. Mid Rise Slim Wide Leg (Just Black Denim)
+   https://uploads.houseacct.com/uploads/photo/file/3598809/thumb_2x_1773857818858_iosa5.jpeg
+
+6. Calypso Dress
+   https://uploads.houseacct.com/uploads/photo/file/3589969/thumb_2x_1773273726774_dx5sk.jpeg
+
+7. Bailey Top (Current Air)
+   https://uploads.houseacct.com/uploads/photo/file/3589887/thumb_2x_1773273389096.png
+
+8. Sami Eyelet Midi Dress (Current Air)
+   https://uploads.houseacct.com/uploads/photo/file/3589837/thumb_2x_1773273041881.png
+
+9. Sammi Eyelet Sweater Top (Current Air)
+   https://uploads.houseacct.com/uploads/photo/file/3589749/thumb_2x_1773272532806.png
+
+10. Eternal Spring Maxi Dress (Lost + Wander)
+    https://uploads.houseacct.com/uploads/photo/file/3584672/thumb_2x_1773076648954.png
+
+11. Eternal Spring Shift Dress (Lost + Wander)
+    https://uploads.houseacct.com/uploads/photo/file/3584663/thumb_2x_1773076286728.png
+
+12. Cabrera Mist Midi Dress (Lost + Wander)
+    https://uploads.houseacct.com/uploads/photo/file/3584654/thumb_2x_1773076115507.png
+
+== COLOR SWATCH IMAGES (icon_3x = small swatch thumbnails) ==
+
+Bailey Mini Dress - blue swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3589928/icon_3x_blue.png
+
+Audrey Dress - pink swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3590045/icon_3x_pink.png
+
+Traci Knit Skirt - white swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3598870/icon_3x_white.png
+
+Traci Knit Cardi - white swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3598861/icon_3x_white.png
+
+Mid Rise Slim Wide Leg - blue swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3598813/icon_3x_blue.png
+
+Calypso Dress - multicolor swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3589972/icon_3x_multicolor.png
+
+Bailey Top - blue swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3589891/icon_3x_blue.png
+
+Sami Eyelet Midi Dress - multicolor swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3589841/icon_3x_multicolor.png
+
+Sammi Eyelet Sweater Top - multicolor swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3589754/icon_3x_multicolor.png
+
+Eternal Spring Maxi Dress - blue swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3584676/icon_3x_blue.png
+
+Eternal Spring Shift Dress - blue swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3584667/icon_3x_blue.png
+
+Cabrera Mist Midi Dress - white swatch:
+  https://uploads.houseacct.com/uploads/photo/file/3584658/icon_3x_white.png
+
+== URL PATTERN NOTES ==
+All images hosted on: uploads.houseacct.com (Material Retail / HouseAccount CDN)
+
+Size variants available by changing the prefix:
+  - thumb_2x_ = retina thumbnail (~600px wide)
+  - big_2x_ / big_3x_ = large display versions
+  - icon_3x_ = small swatch/icon size
+  - No prefix or "original" = full resolution (replace thumb_2x_ with nothing)
+
+Total unique image URLs: 31
+  - 1 logo
+  - 4 shop/brand images
+  - 1 about page store interior
+  - 1 staff profile photo
+  - 4 collection banners
+  - 12 product thumbnails
+  - 12 color swatches

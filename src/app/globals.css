@@ -14,6 +14,8 @@
   --sg-ink-light: #5a5a5a;
   --sg-white: #ffffff;
   --sg-gold: #c4a265;
+  --sg-brand-blue: #1e08ff;
+  --sg-brand-green: #0e9c3f;
 }
 
 @theme inline {
@@ -28,6 +30,8 @@
   --color-ink: var(--sg-ink);
   --color-ink-light: var(--sg-ink-light);
   --color-gold: var(--sg-gold);
+  --color-brand-blue: var(--sg-brand-blue);
+  --color-brand-green: var(--sg-brand-green);
 
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "DM Sans", system-ui, sans-serif;

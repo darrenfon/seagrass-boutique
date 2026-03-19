@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Collection } from "@/lib/products";
 
-// Each collection gets a unique gradient
+// Fallback gradients for collections without real photos
 const collectionGradients: Record<string, string> = {
   voluspa: "from-rose-300 via-pink-200 to-amber-100",
   "riddle-oil": "from-stone-700 via-stone-500 to-amber-200",
@@ -21,8 +22,8 @@ interface CollectionBannerProps {
 export function CollectionBanner({ collection, index, layout = "compact" }: CollectionBannerProps) {
   const isHero = layout === "hero";
   const isLarge = layout === "large";
+  const hasRealImage = collection.image.startsWith("/");
 
-  // Aspect ratio varies by layout to create visual tension
   const aspectClass = isHero
     ? "aspect-[4/5] sm:aspect-[3/4] lg:aspect-auto lg:h-full min-h-[300px]"
     : isLarge
@@ -41,25 +42,28 @@ export function CollectionBanner({ collection, index, layout = "compact" }: Coll
         href={`/collections/${collection.handle}`}
         className={`group block relative overflow-hidden rounded-2xl h-full ${aspectClass}`}
       >
-        {/* Background gradient with scale-on-hover */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${
-            collectionGradients[collection.handle] || "from-stone-200 to-gray-300"
-          } transition-transform duration-700 ease-out group-hover:scale-[1.06]`}
-        />
+        {/* Background — real photo or gradient fallback */}
+        {hasRealImage ? (
+          <Image
+            src={collection.image}
+            alt={collection.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+          />
+        ) : (
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${
+              collectionGradients[collection.handle] || "from-stone-200 to-gray-300"
+            } transition-transform duration-700 ease-out group-hover:scale-[1.06]`}
+          />
+        )}
 
-        {/* Subtle texture overlay */}
-        <div className="absolute inset-0 opacity-[0.035]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-
-        {/* Gradient overlay — deeper for hero, lighter for compact */}
+        {/* Dark overlay for text readability */}
         <div className={`absolute inset-0 ${
           isHero
-            ? "bg-gradient-to-t from-ink/60 via-ink/15 to-ink/5"
-            : "bg-gradient-to-t from-ink/55 via-ink/10 to-transparent"
+            ? "bg-gradient-to-t from-ink/70 via-ink/25 to-ink/10"
+            : "bg-gradient-to-t from-ink/65 via-ink/20 to-ink/5"
         }`} />
 
         {/* Content */}

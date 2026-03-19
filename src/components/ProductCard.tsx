@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/products";
 
@@ -8,7 +9,6 @@ interface ProductCardProps {
   index?: number;
 }
 
-// Extract initials from product title for the placeholder visual
 function getInitials(title: string): string {
   return title
     .split(/[\s-]+/)
@@ -21,6 +21,7 @@ function getInitials(title: string): string {
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const initials = getInitials(product.title);
+  const hasImage = !!product.realImage;
 
   return (
     <motion.article
@@ -30,22 +31,33 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       className="group cursor-pointer"
     >
-      {/* Image placeholder with product initials — lifts and rotates on hover */}
       <motion.div
         whileHover={{ y: -6, rotate: 0.5 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-xl transition-shadow duration-500"
       >
-        <div className={`absolute inset-0 bg-gradient-to-br ${product.image} product-image-placeholder`} />
+        {hasImage ? (
+          /* Real product photo */
+          <Image
+            src={product.realImage!}
+            alt={product.title}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          /* Gradient placeholder with initials */
+          <>
+            <div className={`absolute inset-0 bg-gradient-to-br ${product.image} product-image-placeholder`} />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="font-serif text-5xl sm:text-6xl text-white/[0.15] select-none">
+                {initials}
+              </span>
+            </div>
+          </>
+        )}
 
-        {/* Product initials — gives each card a unique identity even without photos */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-serif text-5xl sm:text-6xl text-white/[0.15] select-none">
-            {initials}
-          </span>
-        </div>
-
-        {/* Hover overlay with Add to Cart */}
+        {/* Hover overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-ink/0 to-ink/0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end justify-center pb-5">
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -66,7 +78,6 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         )}
       </motion.div>
 
-      {/* Product info — tighter spacing, cleaner hierarchy */}
       <div className="space-y-0.5 px-0.5">
         <p className="text-[11px] text-ink-light/70 tracking-[0.1em] uppercase font-medium">{product.vendor}</p>
         <h3 className="text-sm font-medium text-ink group-hover:text-ocean transition-colors duration-200 leading-snug">

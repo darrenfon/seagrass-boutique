@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { categories } from "@/lib/products";
+import { Logo } from "@/components/Logo";
 
 const navLinks = [
   ...categories.map((c) => ({ label: c.name, href: `/browse/${c.slug}` })),
@@ -47,14 +48,9 @@ export function Header() {
           </button>
 
           {/* Logo — centered on mobile, left-ish on desktop with nav */}
-          <Link href="/" className="flex flex-col items-center group absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
-            <span className="font-serif text-[22px] sm:text-[26px] tracking-[0.08em] text-ink group-hover:text-ocean transition-colors duration-300">
-              SEAGRASS
-            </span>
-            <span className="text-[9px] sm:text-[10px] tracking-[0.4em] text-ink-light/70 uppercase -mt-0.5">
-              Boutique
-            </span>
-          </Link>
+          <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
+            <Logo size="md" />
+          </div>
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0.5">

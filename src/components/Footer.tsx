@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 
 export function Footer() {
   return (
@@ -14,14 +15,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
           {/* Brand — wider column */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-block group">
-              <span className="font-serif text-[22px] tracking-[0.08em] text-white group-hover:text-coral-warm transition-colors duration-300">
-                SEAGRASS
-              </span>
-              <span className="block text-[9px] tracking-[0.4em] text-white/40 uppercase -mt-0.5">
-                Boutique
-              </span>
-            </Link>
+            <Logo size="md" light />
             <p className="text-white/40 text-sm leading-relaxed mt-5 max-w-xs">
               Coastal fashion with a modern bohemian flare. Hand-curated pieces
               for the free-spirited and the fashion-forward.

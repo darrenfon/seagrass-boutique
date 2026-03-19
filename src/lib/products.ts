@@ -12,7 +12,8 @@ export interface Product {
   category: string;
   collections: string[];
   tags: string[];
-  image: string; // placeholder gradient key — swap for Shopify CDN URLs later
+  image: string; // gradient fallback for products without photos
+  realImage?: string; // actual product photo path (local or Shopify CDN)
   description?: string;
 }
 
@@ -54,28 +55,28 @@ export const collections: Collection[] = [
     handle: "voluspa",
     title: "Voluspa",
     description: "Hand-poured candles in sculptural glass vessels. Each scent is a tiny vacation.",
-    image: "voluspa",
+    image: "/images/collection-voluspa.jpg",
     featured: true,
   },
   {
     handle: "riddle-oil",
     title: "Riddle Oil",
     description: "Luxurious roll-on oils and spray lotions crafted from pure essential oils.",
-    image: "riddle-oil",
+    image: "/images/collection-riddle.jpg",
     featured: true,
   },
   {
     handle: "spring-fashion",
     title: "Spring Fashion",
     description: "Fresh layers, soft textures, and colors that catch the light. Spring on the shore.",
-    image: "spring",
+    image: "/images/collection-spring.jpg",
     featured: true,
   },
   {
     handle: "summer-fashion",
     title: "Summer Fashion",
     description: "Breezy silhouettes, bold prints, and effortless pieces made for salt air and sunshine.",
-    image: "summer",
+    image: "/images/collection-summer.jpg",
     featured: true,
   },
 ];
@@ -113,18 +114,18 @@ function colorGradient(color: string): string {
 
 // Trending / Homepage
 const trendingProducts: Product[] = [
-  { handle: "audrey-dress", title: "Audrey Dress", vendor: "dRA", price: 145, color: "Pink", category: "dresses", collections: ["trending"], tags: ["dress", "midi", "pink"], image: colorGradient("Pink") },
-  { handle: "bailey-mini-dress", title: "Bailey Mini Dress", vendor: "Current Air", price: 120, color: "Blue", category: "dresses", collections: ["trending"], tags: ["dress", "mini", "blue"], image: colorGradient("Blue") },
-  { handle: "calypso-dress", title: "Calypso Dress", vendor: "Seagrass Boutique", price: 185, color: "Multicolor", category: "dresses", collections: ["trending"], tags: ["dress", "maxi", "multicolor"], image: colorGradient("Multicolor") },
-  { handle: "bailey-top", title: "Bailey Top", vendor: "Current Air", price: 90, color: "Blue", category: "clothing", collections: ["trending"], tags: ["top", "blue"], image: colorGradient("Blue") },
-  { handle: "sami-eyelet-midi-dress", title: "Sami Eyelet Midi Dress", vendor: "Current Air", price: 130, color: "Multicolor", category: "dresses", collections: ["trending"], tags: ["dress", "midi", "eyelet"], image: colorGradient("Multicolor") },
-  { handle: "sammi-eyelet-sweater-top", title: "Sammi Eyelet Sweater Top", vendor: "Current Air", price: 90, color: "Multicolor", category: "clothing", collections: ["trending"], tags: ["top", "sweater", "eyelet"], image: colorGradient("Multicolor") },
-  { handle: "eternal-spring-maxi-dress", title: "Eternal Spring Maxi Dress", vendor: "Lost + Wander", price: 128, color: "Blue", category: "dresses", collections: ["trending"], tags: ["dress", "maxi", "blue"], image: colorGradient("Blue") },
-  { handle: "eternal-spring-shift-dress", title: "Eternal Spring Shift Dress", vendor: "Lost + Wander", price: 108, color: "Blue", category: "dresses", collections: ["trending"], tags: ["dress", "shift", "blue"], image: colorGradient("Blue") },
-  { handle: "cabrera-mist-midi-dress", title: "Cabrera Mist Midi Dress", vendor: "Lost + Wander", price: 118, color: "White", category: "dresses", collections: ["trending"], tags: ["dress", "midi", "white"], image: colorGradient("White") },
+  { handle: "audrey-dress", title: "Audrey Dress", vendor: "dRA", price: 145, color: "Pink", category: "dresses", collections: ["trending"], tags: ["dress", "midi", "pink"], image: colorGradient("Pink"), realImage: "/images/products/audrey-dress.jpeg" },
+  { handle: "bailey-mini-dress", title: "Bailey Mini Dress", vendor: "Current Air", price: 120, color: "Blue", category: "dresses", collections: ["trending"], tags: ["dress", "mini", "blue"], image: colorGradient("Blue"), realImage: "/images/products/bailey-mini-dress.png" },
+  { handle: "calypso-dress", title: "Calypso Dress", vendor: "Seagrass Boutique", price: 185, color: "Multicolor", category: "dresses", collections: ["trending"], tags: ["dress", "maxi", "multicolor"], image: colorGradient("Multicolor"), realImage: "/images/products/calypso-dress.jpeg" },
+  { handle: "bailey-top", title: "Bailey Top", vendor: "Current Air", price: 90, color: "Blue", category: "clothing", collections: ["trending"], tags: ["top", "blue"], image: colorGradient("Blue"), realImage: "/images/products/bailey-top.png" },
+  { handle: "sami-eyelet-midi-dress", title: "Sami Eyelet Midi Dress", vendor: "Current Air", price: 130, color: "Multicolor", category: "dresses", collections: ["trending"], tags: ["dress", "midi", "eyelet"], image: colorGradient("Multicolor"), realImage: "/images/products/sami-eyelet-midi-dress.png" },
+  { handle: "sammi-eyelet-sweater-top", title: "Sammi Eyelet Sweater Top", vendor: "Current Air", price: 90, color: "Multicolor", category: "clothing", collections: ["trending"], tags: ["top", "sweater", "eyelet"], image: colorGradient("Multicolor"), realImage: "/images/products/sammi-eyelet-sweater-top.png" },
+  { handle: "eternal-spring-maxi-dress", title: "Eternal Spring Maxi Dress", vendor: "Lost + Wander", price: 128, color: "Blue", category: "dresses", collections: ["trending"], tags: ["dress", "maxi", "blue"], image: colorGradient("Blue"), realImage: "/images/products/eternal-spring-maxi-dress.png" },
+  { handle: "eternal-spring-shift-dress", title: "Eternal Spring Shift Dress", vendor: "Lost + Wander", price: 108, color: "Blue", category: "dresses", collections: ["trending"], tags: ["dress", "shift", "blue"], image: colorGradient("Blue"), realImage: "/images/products/eternal-spring-shift-dress.png" },
+  { handle: "cabrera-mist-midi-dress", title: "Cabrera Mist Midi Dress", vendor: "Lost + Wander", price: 118, color: "White", category: "dresses", collections: ["trending"], tags: ["dress", "midi", "white"], image: colorGradient("White"), realImage: "/images/products/cabrera-mist-midi-dress.png" },
   { handle: "fiesta-flora-maxi-dress", title: "Fiesta Flora Maxi Dress", vendor: "Lost + Wander", price: 108, color: "Multicolor", category: "dresses", collections: ["trending"], tags: ["dress", "maxi", "floral"], image: colorGradient("Multicolor") },
-  { handle: "kalahari-watermelon-classic-candle", title: "Kalahari Watermelon Classic Candle", vendor: "Voluspa", price: 34, color: "Pink", category: "candles", collections: ["trending", "voluspa"], tags: ["candle", "voluspa", "classic"], image: colorGradient("Pink") },
-  { handle: "kalahari-watermelon-large-jar", title: "Kalahari Watermelon Large Jar Candle", vendor: "Voluspa", price: 38, color: "Pink", category: "candles", collections: ["trending", "voluspa"], tags: ["candle", "voluspa", "large-jar"], image: colorGradient("Pink") },
+  { handle: "kalahari-watermelon-classic-candle", title: "Kalahari Watermelon Classic Candle", vendor: "Voluspa", price: 34, color: "Pink", category: "candles", collections: ["trending", "voluspa"], tags: ["candle", "voluspa", "classic"], image: colorGradient("Pink"), realImage: "/images/products/kalahari-watermelon-classic.jpeg" },
+  { handle: "kalahari-watermelon-large-jar", title: "Kalahari Watermelon Large Jar Candle", vendor: "Voluspa", price: 38, color: "Pink", category: "candles", collections: ["trending", "voluspa"], tags: ["candle", "voluspa", "large-jar"], image: colorGradient("Pink"), realImage: "/images/products/kalahari-watermelon-large.jpeg" },
 ];
 
 // Voluspa
@@ -153,12 +154,12 @@ const voluspaProducts: Product[] = [
 
 // Riddle Oil
 const riddleProducts: Product[] = [
-  { handle: "riddle-kismet-spray-lotion", title: 'Riddle "Kismet" Scented Spray Lotion', vendor: "Riddle Oil", price: 50, color: "Black", category: "body", collections: ["riddle-oil"], tags: ["body", "spray", "lotion"], image: colorGradient("Black") },
-  { handle: "riddle-santal-spray-lotion", title: 'Riddle "Santal" Scented Spray Lotion', vendor: "Riddle Oil", price: 44, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "spray", "lotion"], image: colorGradient("White") },
-  { handle: "riddle-santal-roll-on", title: 'Riddle "Santal" Roll-On Oil 8ML', vendor: "Riddle Oil", price: 58, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "roll-on", "oil"], image: colorGradient("White") },
-  { handle: "riddle-muse-spray-lotion", title: 'Riddle "Muse" Scented Spray Lotion 4oz', vendor: "Riddle Oil", price: 44, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "spray", "lotion"], image: colorGradient("White") },
-  { handle: "riddle-muse-roll-on", title: 'Riddle "Muse" Roll-On Oil 8ML', vendor: "Riddle Oil", price: 58, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "roll-on", "oil"], image: colorGradient("White") },
-  { handle: "riddle-original-spray-lotion", title: 'Riddle "Original" Scented Spray Lotion 4oz', vendor: "Riddle Oil", price: 44, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "spray", "lotion"], image: colorGradient("White") },
+  { handle: "riddle-kismet-spray-lotion", title: 'Riddle "Kismet" Scented Spray Lotion', vendor: "Riddle Oil", price: 50, color: "Black", category: "body", collections: ["riddle-oil"], tags: ["body", "spray", "lotion"], image: colorGradient("Black"), realImage: "/images/products/riddle-kismet-spray.png" },
+  { handle: "riddle-santal-spray-lotion", title: 'Riddle "Santal" Scented Spray Lotion', vendor: "Riddle Oil", price: 44, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "spray", "lotion"], image: colorGradient("White"), realImage: "/images/products/riddle-santal-spray.png" },
+  { handle: "riddle-santal-roll-on", title: 'Riddle "Santal" Roll-On Oil 8ML', vendor: "Riddle Oil", price: 58, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "roll-on", "oil"], image: colorGradient("White"), realImage: "/images/products/riddle-santal-roll-on.jpeg" },
+  { handle: "riddle-muse-spray-lotion", title: 'Riddle "Muse" Scented Spray Lotion 4oz', vendor: "Riddle Oil", price: 44, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "spray", "lotion"], image: colorGradient("White"), realImage: "/images/products/riddle-muse-spray.png" },
+  { handle: "riddle-muse-roll-on", title: 'Riddle "Muse" Roll-On Oil 8ML', vendor: "Riddle Oil", price: 58, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "roll-on", "oil"], image: colorGradient("White"), realImage: "/images/products/riddle-muse-roll-on.jpeg" },
+  { handle: "riddle-original-spray-lotion", title: 'Riddle "Original" Scented Spray Lotion 4oz', vendor: "Riddle Oil", price: 44, color: "White", category: "body", collections: ["riddle-oil"], tags: ["body", "spray", "lotion"], image: colorGradient("White"), realImage: "/images/products/riddle-original-spray.png" },
 ];
 
 // Spring Fashion

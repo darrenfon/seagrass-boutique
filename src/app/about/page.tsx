@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { brands } from "@/lib/products";
 import { Newsletter } from "@/components/Newsletter";
 
@@ -33,20 +34,23 @@ export default function AboutPage() {
       {/* Story */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image placeholder */}
+          {/* Store interior — the real Seagrass Boutique on Asbury Ave */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="aspect-[4/5] rounded-2xl bg-gradient-to-br from-sky-200 via-ocean/20 to-shell overflow-hidden relative"
+            className="relative rounded-2xl overflow-hidden shadow-xl"
           >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <span className="text-8xl opacity-15">&#127754;</span>
-                <p className="font-serif text-ink-light text-xl mt-4">752 Asbury Ave</p>
-                <p className="text-ink-light text-sm">Ocean City, NJ</p>
-              </div>
-            </div>
+            <Image
+              src="/images/store-interior.jpg"
+              alt="Inside Seagrass Boutique — turquoise walls, floral fitting room curtains, natural wood counter, and the Seagrass Boutique sign"
+              width={800}
+              height={600}
+              className="w-full h-auto object-cover"
+              priority
+            />
+            {/* Subtle gradient overlay at bottom for blending into the page */}
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-sand/30 to-transparent" />
           </motion.div>
 
           <motion.div

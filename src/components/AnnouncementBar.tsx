@@ -1,16 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import { COMING_SOON } from "@/lib/site-config";
 
 export function AnnouncementBar() {
   const [visible, setVisible] = useState(true);
   if (!visible) return null;
 
-  const items = [
-    "Free shipping on orders over $150",
-    <>Use code <strong className="font-semibold">WELCOME10</strong> for 10% off</>,
-    "752 Asbury Ave, Ocean City NJ",
-  ];
+  const items = COMING_SOON
+    ? [
+        "New online store coming soon",
+        "752 Asbury Ave, Ocean City NJ",
+        "Mon-Sat 10-5, Sun 11-4",
+      ]
+    : [
+        "Free shipping on orders over $150",
+        <>Use code <strong className="font-semibold">WELCOME10</strong> for 10% off</>,
+        "752 Asbury Ave, Ocean City NJ",
+      ];
 
   return (
     <div className="bg-ocean-deep text-white text-[13px] relative overflow-hidden">

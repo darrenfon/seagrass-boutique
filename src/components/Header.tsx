@@ -6,11 +6,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { categories } from "@/lib/products";
 import { Logo } from "@/components/Logo";
 import { useCart } from "@/lib/cart-context";
+import { COMING_SOON, SHOPTIQUES_URL } from "@/lib/site-config";
 
-const navLinks = [
+const fullNavLinks = [
   ...categories.map((c) => ({ label: c.name, href: `/browse/${c.slug}` })),
   { label: "About Us", href: "/about" },
 ];
+
+const comingSoonNavLinks = [
+  { label: "Shop on Shoptiques", href: SHOPTIQUES_URL, external: true },
+  { label: "About Us", href: "/about", external: false },
+];
+
+const navLinks = COMING_SOON ? comingSoonNavLinks : fullNavLinks.map((l) => ({ ...l, external: false }));
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,22 +64,38 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0.5">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-3.5 py-2 text-[13px] tracking-wide text-ink-light/80 hover:text-ocean transition-colors duration-200 relative group"
-              >
-                {link.label}
-                <span className="absolute bottom-0.5 left-3.5 right-3.5 h-[1.5px] bg-ocean scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 text-[13px] tracking-wide text-ink-light/80 hover:text-ocean transition-colors duration-200 relative group"
+                >
+                  {link.label}
+                  <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="inline-block ml-1 -mt-0.5 opacity-40">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
+                  <span className="absolute bottom-0.5 left-3.5 right-3.5 h-[1.5px] bg-ocean scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="px-3.5 py-2 text-[13px] tracking-wide text-ink-light/80 hover:text-ocean transition-colors duration-200 relative group"
+                >
+                  {link.label}
+                  <span className="absolute bottom-0.5 left-3.5 right-3.5 h-[1.5px] bg-ocean scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+                </Link>
+              )
+            )}
           </nav>
 
-          {/* Cart */}
+          {/* Cart — hidden in coming-soon mode */}
           <button
             onClick={openCart}
-            className="p-2 -mr-2 text-ink hover:text-ocean transition-colors relative group"
+            className={`p-2 -mr-2 text-ink hover:text-ocean transition-colors relative group ${COMING_SOON ? "invisible" : ""}`}
             aria-label="Shopping cart"
           >
             <svg width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="transition-transform duration-200 group-hover:scale-105">
@@ -109,13 +133,25 @@ export function Header() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.04, duration: 0.3 }}
                 >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-[15px] tracking-wide text-ink-light hover:text-ocean hover:bg-shell/60 rounded-xl transition-all duration-200"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-3 text-[15px] tracking-wide text-ink-light hover:text-ocean hover:bg-shell/60 rounded-xl transition-all duration-200"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-3 text-[15px] tracking-wide text-ink-light hover:text-ocean hover:bg-shell/60 rounded-xl transition-all duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
             </nav>

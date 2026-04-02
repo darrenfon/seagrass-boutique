@@ -1,7 +1,7 @@
 // Shopify Storefront API GraphQL client — server-only, uses native fetch
 
 const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || process.env.SHOPIFY_STORE_DOMAIN || "";
-const SHOPIFY_TOKEN = process.env.SHOPIFY_STOREFRONT_TOKEN || process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN || "";
+const SHOPIFY_TOKEN = process.env.SHOPIFY_STOREFRONT_TOKEN || "";
 const API_VERSION = "2026-01";
 
 const endpoint = `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`;

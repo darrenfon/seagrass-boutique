@@ -1,6 +1,6 @@
 // Conditionally render coming-soon or full site based on feature flag
 import { COMING_SOON } from "@/lib/site-config";
-import { getTrendingProducts, getFeaturedCollections } from "@/lib/shopify/data";
+import { getTrendingProducts, getFeaturedCollections } from "@/lib/commerce/data";
 import HomePage from "@/components/HomePage";
 import ComingSoonHome from "@/components/ComingSoonHome";
 

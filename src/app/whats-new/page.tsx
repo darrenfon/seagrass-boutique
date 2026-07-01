@@ -11,6 +11,9 @@ export const metadata = {
   description: "The latest arrivals at Seagrass Boutique.",
 };
 
+// Renders per-request from the live Square catalog.
+export const dynamic = "force-dynamic";
+
 export default async function WhatsNewPage() {
   if (COMING_SOON) {
     redirect(SHOPTIQUES_URL);

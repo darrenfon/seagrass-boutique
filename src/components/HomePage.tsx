@@ -171,16 +171,22 @@ export default function HomePage({ trending, collections }: HomePageProps) {
           </Link>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          <div className="lg:col-span-7 lg:row-span-2">
-            <CollectionBanner collection={collections[0]} index={0} layout="hero" />
-          </div>
-          <div className="lg:col-span-5">
-            <CollectionBanner collection={collections[1]} index={1} layout="compact" />
-          </div>
-          <div className="lg:col-span-5 grid grid-cols-2 gap-5">
-            <CollectionBanner collection={collections[2]} index={2} layout="compact" />
-            <CollectionBanner collection={collections[3]} index={3} layout="compact" />
-          </div>
+          {collections[0] && (
+            <div className="lg:col-span-7 lg:row-span-2">
+              <CollectionBanner collection={collections[0]} index={0} layout="hero" />
+            </div>
+          )}
+          {collections[1] && (
+            <div className="lg:col-span-5">
+              <CollectionBanner collection={collections[1]} index={1} layout="compact" />
+            </div>
+          )}
+          {(collections[2] || collections[3]) && (
+            <div className="lg:col-span-5 grid grid-cols-2 gap-5">
+              {collections[2] && <CollectionBanner collection={collections[2]} index={2} layout="compact" />}
+              {collections[3] && <CollectionBanner collection={collections[3]} index={3} layout="compact" />}
+            </div>
+          )}
         </div>
       </section>
 

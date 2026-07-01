@@ -103,8 +103,6 @@ export const collections: Collection[] = [
 export const categories = [
   { name: "Clothing", slug: "clothing" },
   { name: "New Arrivals", slug: "new-arrivals" },
-  { name: "Body", slug: "body" },
-  { name: "Candles", slug: "candles" },
   { name: "Dresses", slug: "dresses" },
   { name: "Shoes", slug: "shoes" },
   { name: "Accessories", slug: "accessories" },

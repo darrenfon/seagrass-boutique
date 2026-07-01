@@ -26,14 +26,9 @@ import type {
   SquareInventoryCount,
 } from "./types";
 import type { Product, Collection } from "../products";
-import {
-  getProductsByCollection as getStaticByCollection,
-  getProductsByCategory as getStaticByCategory,
-  getTrendingProducts as getStaticTrending,
-  getProductByHandle as getStaticByHandle,
-  getCollectionByHandle as getStaticCollection,
-  collections as staticCollections,
-} from "../products";
+// NOTE: no static/demo-catalog fallback. This is a real store — on a Square miss
+// or failure we return empty rather than showing placeholder demo products that
+// Kevin doesn't actually sell.
 
 // ─── Internal: fetch + normalize the whole Square catalog ────────
 // One catalog search + one inventory batch covers the entire small boutique
@@ -121,7 +116,7 @@ export async function getProductsByCollection(handle: string): Promise<Product[]
   } catch (e) {
     console.warn(`Square fetch failed for collection "${handle}", using static data:`, e);
   }
-  return getStaticByCollection(handle);
+  return [];
 }
 
 /** Products in a category — Square category name slug, with static fallback. */
@@ -140,7 +135,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
   } catch (e) {
     console.warn(`Square fetch failed for category "${categorySlug}", using static data:`, e);
   }
-  return getStaticByCategory(categorySlug);
+  return [];
 }
 
 // Sort products newest-first by Square created_at; items without a timestamp
@@ -174,7 +169,7 @@ export async function getNewArrivals(days = 30): Promise<Product[]> {
   } catch (e) {
     console.warn("Square fetch failed for new arrivals, using static data:", e);
   }
-  return getStaticTrending();
+  return [];
 }
 
 /** Trending/featured products — Square has no native "trending"; returns all items. */
@@ -185,7 +180,7 @@ export async function getTrendingProducts(): Promise<Product[]> {
   } catch (e) {
     console.warn("Square fetch failed for trending products, using static data:", e);
   }
-  return getStaticTrending();
+  return [];
 }
 
 /** A single product by slug/handle. */
@@ -197,7 +192,7 @@ export async function getProductByHandle(handle: string): Promise<Product | unde
   } catch (e) {
     console.warn(`Square fetch failed for product "${handle}", using static data:`, e);
   }
-  return getStaticByHandle(handle);
+  return undefined;
 }
 
 /** A collection by handle — built from the matching Square category. */
@@ -214,7 +209,7 @@ export async function getCollectionByHandle(handle: string): Promise<Collection 
   } catch (e) {
     console.warn(`Square fetch failed for collection "${handle}", using static data:`, e);
   }
-  return getStaticCollection(handle);
+  return undefined;
 }
 
 /**
@@ -246,7 +241,7 @@ export async function getFeaturedCollections(): Promise<Collection[]> {
   } catch (e) {
     console.warn("Square fetch failed for featured collections, using static data:", e);
   }
-  return staticCollections.filter((c) => c.featured);
+  return [];
 }
 
 /** Used by the checkout route to resolve catalog object IDs server-side. */

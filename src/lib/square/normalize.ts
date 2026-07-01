@@ -73,18 +73,41 @@ function variationCompareAt(variation: SquareItemVariation): number | undefined 
   return cents / 100;
 }
 
-// Coarse Square-category-name -> storefront-category-slug mapping.
+// Square-category-name -> storefront-category-slug mapping. Covers Kevin's real
+// Square category names so browse pages show his actual inventory (unmapped
+// apparel falls through to "clothing").
 const CATEGORY_NAME_TO_SLUG: Record<string, string> = {
+  // Dresses
   dresses: "dresses",
   dress: "dresses",
-  tops: "clothing",
-  top: "clothing",
-  clothing: "clothing",
+  // Accessories (jewelry, bags, and small goods)
   accessories: "accessories",
   accessory: "accessories",
+  jewelry: "accessories",
+  bags: "accessories",
+  handbags: "accessories",
+  bag: "accessories",
+  belt: "accessories",
+  scarf: "accessories",
+  hat: "accessories",
+  hats: "accessories",
+  gloves: "accessories",
+  socks: "accessories",
+  sunglasses: "accessories",
+  // Shoes
   shoes: "shoes",
-  candles: "candles",
+  shoe: "shoes",
+  // Body / fragrance
   body: "body",
+  fragrance: "body",
+  // Candles (hidden from site, but map for completeness)
+  candles: "candles",
+  candle: "candles",
+  // Clothing (explicit; everything else also defaults here)
+  tops: "clothing",
+  top: "clothing",
+  tee: "clothing",
+  clothing: "clothing",
 };
 
 function inferCategory(categoryName: string | undefined): string {

@@ -40,6 +40,24 @@ interface SquareCatalogResult {
   categoryNameByHandle: Map<string, string>;
 }
 
+// ─── Site display rules (Kevin's choices, confirmed 2026-06-25/07-01) ────
+// Items Kevin does NOT want on the new website. Enforced here in the data layer
+// so it applies to every page, and WITHOUT touching Square's ecom_visibility
+// (that field drives his separate Square Online store — we don't modify it).
+//   - Candles: never online (they arrive damaged when shipped)
+//   - Sunglasses: never online
+//   - Jewelry under $40: sells too fast in-store to bother listing online
+//   - "Riddle" fragrance/body brand: excluded by name
+function isHiddenFromSite(product: Product, categoryName: string | undefined): boolean {
+  const cat = (categoryName || "").toLowerCase();
+  const name = (product.title || "").toLowerCase();
+  if (cat.includes("candle")) return true;
+  if (cat.includes("sunglass")) return true;
+  if (cat.includes("jewel") && product.price < 40) return true;
+  if (name.includes("riddle")) return true;
+  return false;
+}
+
 async function loadCatalog(): Promise<SquareCatalogResult> {
   const search = await searchItems();
   const items = (search.objects || []).filter(
@@ -60,15 +78,18 @@ async function loadCatalog(): Promise<SquareCatalogResult> {
   );
 
   const categoryNameByHandle = new Map<string, string>();
-  const products = items.map((item) => {
-    const p = normalizeProduct(item, ctx);
-    const catId = resolveCategoryId(item);
-    const catName = catId
-      ? ctx.categoriesById.get(catId)?.category_data?.name
-      : undefined;
-    if (catName) categoryNameByHandle.set(p.handle, catName);
-    return p;
-  });
+  const products = items
+    .map((item) => {
+      const p = normalizeProduct(item, ctx);
+      const catId = resolveCategoryId(item);
+      const catName = catId
+        ? ctx.categoriesById.get(catId)?.category_data?.name
+        : undefined;
+      if (catName) categoryNameByHandle.set(p.handle, catName);
+      return p;
+    })
+    // Drop items Kevin doesn't want on the website (see isHiddenFromSite).
+    .filter((p) => !isHiddenFromSite(p, categoryNameByHandle.get(p.handle)));
 
   return { products, categoryNameByHandle };
 }

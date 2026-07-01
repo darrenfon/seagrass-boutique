@@ -48,12 +48,15 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
-          /* Gradient placeholder with initials */
+          /* Branded placeholder for products without a photo yet */
           <>
-            <div className={`absolute inset-0 bg-gradient-to-br ${product.image} product-image-placeholder`} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-serif text-5xl sm:text-6xl text-white/[0.15] select-none">
+            <div className="absolute inset-0 bg-gradient-to-br from-shell via-sand to-driftwood/40" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 p-4 text-center">
+              <span className="font-serif text-4xl sm:text-5xl text-ocean/25 select-none leading-none">
                 {initials}
+              </span>
+              <span className="font-serif text-sm text-ink/45 leading-snug line-clamp-2 select-none">
+                {product.title}
               </span>
             </div>
           </>

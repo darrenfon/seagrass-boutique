@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/products";
@@ -30,6 +30,23 @@ export default function BrowsePage({ products, category }: BrowsePageProps) {
   const title = categoryInfo?.name || category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   const [visible, setVisible] = useState(PAGE_SIZE);
   const shown = products.slice(0, visible);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  // Infinite scroll: reveal the next page when the sentinel scrolls into view.
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisible((v) => (v < products.length ? v + PAGE_SIZE : v));
+        }
+      },
+      { rootMargin: "600px 0px" } // prefetch before the user reaches the bottom
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [products.length]);
 
   return (
     <>
@@ -70,13 +87,8 @@ export default function BrowsePage({ products, category }: BrowsePageProps) {
               ))}
             </div>
             {visible < products.length && (
-              <div className="text-center mt-14">
-                <button
-                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                  className="inline-flex items-center gap-2 px-8 py-4 border-2 border-ink/10 text-ink rounded-full font-medium hover:border-ocean hover:text-ocean transition-all duration-300 text-[15px]"
-                >
-                  Load more ({products.length - visible} left)
-                </button>
+              <div ref={sentinelRef} className="flex justify-center mt-16" aria-hidden="true">
+                <span className="inline-block w-6 h-6 rounded-full border-2 border-ocean/30 border-t-ocean animate-spin" />
               </div>
             )}
           </>

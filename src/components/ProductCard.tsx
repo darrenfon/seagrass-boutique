@@ -24,13 +24,15 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const initials = getInitials(product.title);
   const hasImage = !!product.realImage;
 
-  // NOTE: cards must render visible on load. A previous whileInView entrance
-  // animation with a per-index stagger delay left large grids (~1000+ items)
-  // stuck at opacity:0 (invisible), so we render statically. `index` retained
-  // for API compatibility.
-  void index;
+  // Entrance drop-in that plays on MOUNT (animate), not on scroll (whileInView).
+  // whileInView previously left large grids stuck invisible when its observer
+  // didn't fire; `animate` always resolves to opacity:1. Delay is taken modulo a
+  // page so it staggers within each infinite-scroll batch without exploding.
   return (
     <motion.article
+      initial={{ opacity: 0, y: 22 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, delay: (index % 24) * 0.045, ease: [0.22, 1, 0.36, 1] }}
       className="group cursor-pointer"
     >
       <motion.div

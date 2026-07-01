@@ -57,6 +57,13 @@ function isHiddenFromSite(product: Product, categoryName: string | undefined): b
   return false;
 }
 
+// Only list products that have a real photo. Kevin's register catalog is mostly
+// photoless; a store of monogram placeholders looks broken. Showing only
+// photographed items keeps the site polished, and it fills in automatically as
+// photos arrive (Faire backlog import, or any photo added in Square) — within
+// the 5-min catalog cache. Flip to false to show every item with placeholders.
+const REQUIRE_PHOTO = true;
+
 async function loadCatalog(): Promise<SquareCatalogResult> {
   const search = await searchItems();
   const items = (search.objects || []).filter(
@@ -97,8 +104,13 @@ async function loadCatalog(): Promise<SquareCatalogResult> {
       if (catName) categoryNameByHandle.set(p.handle, catName);
       return p;
     })
-    // Drop items Kevin doesn't want on the website (see isHiddenFromSite).
-    .filter((p) => !isHiddenFromSite(p, categoryNameByHandle.get(p.handle)));
+    // Drop items Kevin doesn't want on the website (see isHiddenFromSite),
+    // and — while the catalog is being photographed — items without a photo.
+    .filter(
+      (p) =>
+        !isHiddenFromSite(p, categoryNameByHandle.get(p.handle)) &&
+        (!REQUIRE_PHOTO || Boolean(p.realImage))
+    );
 
   return { products, categoryNameByHandle };
 }

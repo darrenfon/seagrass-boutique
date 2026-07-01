@@ -70,6 +70,7 @@ export type SquareCatalogObject =
 export interface SquareSearchResponse {
   objects?: SquareCatalogObject[];
   related_objects?: SquareCatalogObject[];
+  cursor?: string;
 }
 
 export interface SquareRetrieveResponse {
@@ -86,6 +87,7 @@ export interface SquareInventoryCount {
 
 export interface SquareInventoryResponse {
   counts?: SquareInventoryCount[];
+  cursor?: string;
 }
 
 export interface SquareLocation {

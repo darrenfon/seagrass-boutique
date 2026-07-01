@@ -8,6 +8,10 @@
 // mirroring the Shopify data layer's resilience behaviour.
 
 import { searchItems, retrieveItem, searchCategories, batchRetrieveInventory } from "./queries";
+// Verified exact-name matches between Square item names and our archived
+// Shoptiques product photos (strict full-name match, spot-checked visually).
+// Used only to fill in a photo when a Square item has none of its own.
+import backupPhotos from "./backup-photos.json";
 import {
   buildContext,
   normalizeProduct,
@@ -77,10 +81,20 @@ async function loadCatalog(): Promise<SquareCatalogResult> {
     (inv.counts || []) as SquareInventoryCount[]
   );
 
+  const photoByName = backupPhotos as Record<string, string>;
   const categoryNameByHandle = new Map<string, string>();
   const products = items
     .map((item) => {
       const p = normalizeProduct(item, ctx);
+      // If Square has no photo for this item, fall back to a verified archived
+      // photo matched by exact product name (never overrides a real Square photo).
+      if (!p.realImage) {
+        const backup = photoByName[p.title];
+        if (backup) {
+          p.realImage = backup;
+          if (!p.images || p.images.length === 0) p.images = [backup];
+        }
+      }
       const catId = resolveCategoryId(item);
       const catName = catId
         ? ctx.categoriesById.get(catId)?.category_data?.name

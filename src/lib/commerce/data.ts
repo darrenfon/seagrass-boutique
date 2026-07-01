@@ -26,6 +26,10 @@ export function getTrendingProducts(): Promise<Product[]> {
   return backend.getTrendingProducts();
 }
 
+export function getNewArrivals(days?: number): Promise<Product[]> {
+  return backend.getNewArrivals(days);
+}
+
 export function getProductByHandle(handle: string): Promise<Product | undefined> {
   return backend.getProductByHandle(handle);
 }

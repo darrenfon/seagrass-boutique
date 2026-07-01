@@ -30,6 +30,9 @@ export interface Product {
   images?: string[];
   availableForSale?: boolean;
   descriptionHtml?: string;
+  // ISO timestamp the product was created in the backend catalog (Square created_at).
+  // Powers the "What's New" page. Undefined for static/fallback products.
+  createdAt?: string;
 }
 
 export interface Collection {

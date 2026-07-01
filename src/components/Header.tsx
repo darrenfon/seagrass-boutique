@@ -9,6 +9,7 @@ import { useCart } from "@/lib/cart-context";
 import { COMING_SOON, SHOPTIQUES_URL } from "@/lib/site-config";
 
 const fullNavLinks = [
+  { label: "What's New", href: "/whats-new" },
   ...categories.map((c) => ({ label: c.name, href: `/browse/${c.slug}` })),
   { label: "About Us", href: "/about" },
 ];

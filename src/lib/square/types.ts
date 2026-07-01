@@ -30,6 +30,7 @@ export interface SquareCatalogItem {
   id: string;
   type: "ITEM";
   updated_at?: string;
+  created_at?: string;
   item_data: {
     name?: string;
     description?: string;

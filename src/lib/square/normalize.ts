@@ -229,6 +229,7 @@ export function normalizeProduct(
     images,
     availableForSale,
     descriptionHtml: undefined,
+    createdAt: item.created_at,
   };
 }
 

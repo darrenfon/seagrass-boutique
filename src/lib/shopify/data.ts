@@ -91,6 +91,17 @@ export async function getTrendingProducts(): Promise<Product[]> {
   return getStaticTrending();
 }
 
+/**
+ * "What's New" — parity with the Square backend. Shopify's storefront query here
+ * returns newest-first; the `days` window is honored on the Square backend, which
+ * is the live commerce backend. This fallback returns the newest available items.
+ */
+export async function getNewArrivals(_days = 30): Promise<Product[]> {
+  void _days;
+  const products = await getTrendingProducts();
+  return products.slice(0, 24);
+}
+
 // Fetch a single product by handle
 export async function getProductByHandle(handle: string): Promise<Product | undefined> {
   if (!isShopifyLive) return getStaticByHandle(handle);

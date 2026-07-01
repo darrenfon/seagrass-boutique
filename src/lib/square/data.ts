@@ -94,7 +94,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
   try {
     const { products, categoryNameByHandle } = await loadCatalog();
     if (categorySlug === "new-arrivals") {
-      return products.slice(-20).reverse();
+      return sortByNewest(products);
     }
     const matched = products.filter((p) => {
       const catName = categoryNameByHandle.get(p.handle);
@@ -106,6 +106,40 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
     console.warn(`Square fetch failed for category "${categorySlug}", using static data:`, e);
   }
   return getStaticByCategory(categorySlug);
+}
+
+// Sort products newest-first by Square created_at; items without a timestamp
+// sink to the bottom (preserving their relative order).
+function sortByNewest(products: Product[]): Product[] {
+  return [...products].sort((a, b) => {
+    const ta = a.createdAt ? Date.parse(a.createdAt) : 0;
+    const tb = b.createdAt ? Date.parse(b.createdAt) : 0;
+    return tb - ta;
+  });
+}
+
+/**
+ * "What's New" — products created in the last `days` days, newest first.
+ * Kevin's requested feature: auto-populated from when items are added in Square.
+ * Falls back to the newest-by-created-at items if none fall in the window,
+ * so the page is never empty.
+ */
+export async function getNewArrivals(days = 30): Promise<Product[]> {
+  try {
+    const { products } = await loadCatalog();
+    if (products.length > 0) {
+      const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+      const recent = sortByNewest(
+        products.filter((p) => p.createdAt && Date.parse(p.createdAt) >= cutoff)
+      );
+      if (recent.length > 0) return recent;
+      // Nothing in the window — show the newest items regardless of age.
+      return sortByNewest(products).slice(0, 24);
+    }
+  } catch (e) {
+    console.warn("Square fetch failed for new arrivals, using static data:", e);
+  }
+  return getStaticTrending();
 }
 
 /** Trending/featured products — Square has no native "trending"; returns all items. */

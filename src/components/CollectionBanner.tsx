@@ -39,13 +39,7 @@ export function CollectionBanner({ collection, index, layout = "compact" }: Coll
     : "aspect-[3/4] sm:aspect-[4/5]";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="h-full"
-    >
+    <motion.div className="h-full">
       <Link
         href={`/collections/${collection.handle}`}
         className={`group block relative overflow-hidden rounded-2xl h-full ${aspectClass}`}

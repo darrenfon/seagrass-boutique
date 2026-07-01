@@ -24,12 +24,13 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const initials = getInitials(product.title);
   const hasImage = !!product.realImage;
 
+  // NOTE: cards must render visible on load. A previous whileInView entrance
+  // animation with a per-index stagger delay left large grids (~1000+ items)
+  // stuck at opacity:0 (invisible), so we render statically. `index` retained
+  // for API compatibility.
+  void index;
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       className="group cursor-pointer"
     >
       <motion.div

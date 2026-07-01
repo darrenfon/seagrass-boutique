@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/products";
 import { categories } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 import { Newsletter } from "@/components/Newsletter";
+
+const PAGE_SIZE = 24;
 
 const categoryDescriptions: Record<string, string> = {
   clothing: "Tops, bottoms, sweaters, and everything in between. Layers that feel as good as they look.",
@@ -25,6 +28,8 @@ interface BrowsePageProps {
 export default function BrowsePage({ products, category }: BrowsePageProps) {
   const categoryInfo = categories.find((c) => c.slug === category);
   const title = categoryInfo?.name || category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const [visible, setVisible] = useState(PAGE_SIZE);
+  const shown = products.slice(0, visible);
 
   return (
     <>
@@ -58,11 +63,23 @@ export default function BrowsePage({ products, category }: BrowsePageProps) {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {products.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-            {products.map((product, i) => (
-              <ProductCard key={product.handle} product={product} index={i} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+              {shown.map((product, i) => (
+                <ProductCard key={product.handle} product={product} index={i} />
+              ))}
+            </div>
+            {visible < products.length && (
+              <div className="text-center mt-14">
+                <button
+                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                  className="inline-flex items-center gap-2 px-8 py-4 border-2 border-ink/10 text-ink rounded-full font-medium hover:border-ocean hover:text-ocean transition-all duration-300 text-[15px]"
+                >
+                  Load more ({products.length - visible} left)
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-20">
             <div className="text-6xl mb-4 opacity-20">&#10022;</div>

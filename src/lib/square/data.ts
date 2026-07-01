@@ -203,14 +203,32 @@ export async function getCollectionByHandle(handle: string): Promise<Collection 
   return getStaticCollection(handle);
 }
 
-/** Featured collections — derived from Square categories, static fallback. */
+/**
+ * Featured collections for the homepage — a curated, ordered set of clean Square
+ * categories (Kevin has ~52, many messy near-duplicates + hidden ones like
+ * Candles/Sunglasses). We spotlight a tidy handful; every category is still
+ * browsable directly. Falls back to all categories, then static.
+ */
+const FEATURED_COLLECTION_SLUGS = ["dress", "tops", "denim", "jewelry", "shoes", "handbags"];
+
 export async function getFeaturedCollections(): Promise<Collection[]> {
   try {
     const catRes = await searchCategories();
     const categories = (catRes.objects || []).filter(
       (o): o is SquareCatalogCategory => o.type === "CATEGORY"
     );
-    if (categories.length > 0) return categories.map(normalizeCollection);
+    if (categories.length > 0) {
+      const bySlug = new Map<string, SquareCatalogCategory>();
+      for (const c of categories) {
+        const s = slugify(c.category_data?.name || "");
+        if (s && !bySlug.has(s)) bySlug.set(s, c);
+      }
+      const curated = FEATURED_COLLECTION_SLUGS.map((s) => bySlug.get(s))
+        .filter((c): c is SquareCatalogCategory => Boolean(c))
+        .map(normalizeCollection);
+      if (curated.length > 0) return curated;
+      return categories.map(normalizeCollection);
+    }
   } catch (e) {
     console.warn("Square fetch failed for featured collections, using static data:", e);
   }

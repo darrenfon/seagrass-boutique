@@ -240,8 +240,11 @@ export function normalizeCollection(category: SquareCatalogCategory): Collection
   return {
     handle,
     title: name,
-    description: "",
-    image: `/images/collection-${handle}.jpg`,
+    description: `Shop our ${name.toLowerCase()} edit.`,
+    // No per-category photo files exist for arbitrary Square categories; leave
+    // image empty so CollectionBanner uses its gradient fallback (never a broken
+    // image). A real photo can be dropped in later if desired.
+    image: "",
     featured: true,
   };
 }

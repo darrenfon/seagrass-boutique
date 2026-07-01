@@ -93,11 +93,11 @@ export default function HomePage({ trending, collections }: HomePageProps) {
                 </svg>
               </Link>
               <Link
-                href="/collections/spring-fashion"
+                href="/browse/dresses"
                 className="inline-flex items-center gap-2 px-8 py-4 border-2 border-ink/10 text-ink rounded-full font-medium
                            hover:border-ocean hover:text-ocean transition-all duration-300 text-[15px]"
               >
-                Spring Collection
+                Shop Dresses
               </Link>
             </motion.div>
           </div>

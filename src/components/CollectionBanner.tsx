@@ -11,6 +11,14 @@ const collectionGradients: Record<string, string> = {
   "riddle-oil": "from-stone-700 via-stone-500 to-amber-200",
   "spring-fashion": "from-emerald-200 via-sky-100 to-rose-100",
   "summer-fashion": "from-amber-200 via-orange-100 to-sky-200",
+  // Square-category collections
+  dress: "from-rose-200 via-pink-100 to-amber-100",
+  tops: "from-sky-200 via-cyan-100 to-teal-100",
+  denim: "from-indigo-300 via-blue-200 to-sky-100",
+  jewelry: "from-amber-200 via-yellow-100 to-stone-100",
+  shoes: "from-stone-300 via-stone-200 to-amber-100",
+  handbags: "from-teal-200 via-emerald-100 to-lime-100",
+  sweater: "from-orange-200 via-amber-100 to-rose-100",
 };
 
 interface CollectionBannerProps {

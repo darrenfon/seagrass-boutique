@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/products";
@@ -29,7 +29,30 @@ export default function BrowsePage({ products, category }: BrowsePageProps) {
   const categoryInfo = categories.find((c) => c.slug === category);
   const title = categoryInfo?.name || category.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const shown = products.slice(0, visible);
+  const [sort, setSort] = useState("featured");
+
+  const sorted = useMemo(() => {
+    const arr = [...products];
+    switch (sort) {
+      case "price-asc":
+        arr.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        arr.sort((a, b) => b.price - a.price);
+        break;
+      case "newest":
+        arr.sort(
+          (a, b) =>
+            (b.createdAt ? Date.parse(b.createdAt) : 0) -
+            (a.createdAt ? Date.parse(a.createdAt) : 0)
+        );
+        break;
+      // "featured": keep the order the data layer returned
+    }
+    return arr;
+  }, [products, sort]);
+
+  const shown = sorted.slice(0, visible);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   // Infinite scroll: reveal the next page when the sentinel scrolls into view.
@@ -69,11 +92,19 @@ export default function BrowsePage({ products, category }: BrowsePageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between border-b border-driftwood/20">
         <p className="text-sm text-ink-light">{products.length} products</p>
         <div className="flex items-center gap-4">
-          <select className="text-sm text-ink-light bg-transparent border border-driftwood/40 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ocean/30">
-            <option>Sort by: Featured</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-            <option>Newest</option>
+          <select
+            value={sort}
+            onChange={(e) => {
+              setSort(e.target.value);
+              setVisible(PAGE_SIZE); // restart pagination from the top of the new order
+            }}
+            aria-label="Sort products"
+            className="text-sm text-ink-light bg-transparent border border-driftwood/40 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ocean/30"
+          >
+            <option value="featured">Sort by: Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="newest">Newest</option>
           </select>
         </div>
       </div>

@@ -20,6 +20,16 @@ interface CheckoutLine {
 }
 
 export async function POST(request: NextRequest) {
+  // Preview-safety gate: the preview deployment is publicly reachable and wired
+  // to the LIVE Square account, so checkout is disabled there via a Preview-scoped
+  // env var (CHECKOUT_DISABLED=true). Production never sets it. Temporarily unset
+  // it on preview to run a supervised real test purchase.
+  if (process.env.CHECKOUT_DISABLED === "true") {
+    return NextResponse.json(
+      { error: "Checkout isn't open yet on this preview site." },
+      { status: 503 }
+    );
+  }
   try {
     const body = await request.json();
     const lines: CheckoutLine[] = Array.isArray(body?.lines) ? body.lines : [];

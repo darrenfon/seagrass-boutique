@@ -41,7 +41,7 @@ export default function ComingSoonHome() {
             </h1>
 
             <p className="text-ink-light text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-              We&apos;re gearing up for summer with a brand new online shopping experience.
+              We&apos;re gearing up for fall and winter with a brand new online shopping experience.
               Coastal fashion with a modern bohemian flare — coming to your screen soon.
             </p>
 
